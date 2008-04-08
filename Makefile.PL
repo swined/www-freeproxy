@@ -5,28 +5,36 @@ use warnings;
 use YAML;
 use ExtUtils::MakeMaker;
 
+###
+
 my $deps = {
 	'LWP::Simple' => 0,
 	'Exporter' => 0,
 };
+my $name = 'WWW::FreeProxy';
+my $main = 'lib/WWW/FreeProxy.pm';
+
+###
+
+require "./$main";
 
 open F, '> META.yml';
 print F Dump {
-	name		=> 'WWW::FreeProxy',
-	version		=> '0.02',
-	version_from	=> 'lib/WWW/FreeProxy.pm',
+	name		=> $name,
+	version		=> ${WWW::FreeProxy::VERSION},
+	version_from	=> $main,
 	installdirs	=> 'site',
 	requires	=> $deps,
 	distribution_type => 'module',
-	generated_by	=> 'ExtUtils::MakeMaker version 6.17',
+	generated_by	=> "ExtUtils::MakeMaker version $ExtUtils::MakeMaker::VERSION",
 };
 close F;
 
 WriteMakefile(
-    NAME                => 'WWW::FreeProxy',
+    NAME                => $name,
     AUTHOR              => 'Alexey Alexandrov <swined@cpan.org>',
-    VERSION_FROM        => 'lib/WWW/FreeProxy.pm',
-    ABSTRACT_FROM       => 'lib/WWW/FreeProxy.pm',
+    VERSION_FROM        => $main,
+    ABSTRACT_FROM       => $main,
     PL_FILES            => {},
     PREREQ_PM		=> $deps,
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
