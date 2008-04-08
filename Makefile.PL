@@ -12,16 +12,25 @@ my $deps = {
 	'Exporter' => 0,
 };
 my $name = 'WWW::FreeProxy';
-my $main = 'lib/WWW/FreeProxy.pm';
+my $author = 'Alexey Alexandrov <swined@cpan.org>';
 
 ###
 
-require "./$main";
+my $main = $name;
+$main =~ s/::/\//g;
+$main = "lib/${main}.pm";
 
-open F, '> META.yml';
+(my $dist = $name) =~ s/::/-/g;
+
+my $ver = 0;
+open F, '<', $main;
+$ver = eval $_ while !$ver && (local $_ = <F>);
+close F;
+
+open F, '>', 'META.yml';
 print F Dump {
 	name		=> $name,
-	version		=> ${WWW::FreeProxy::VERSION},
+	version		=> $ver,
 	version_from	=> $main,
 	installdirs	=> 'site',
 	requires	=> $deps,
@@ -30,13 +39,15 @@ print F Dump {
 };
 close F;
 
+###
+
 WriteMakefile(
     NAME                => $name,
-    AUTHOR              => 'Alexey Alexandrov <swined@cpan.org>',
+    AUTHOR              => $author,
     VERSION_FROM        => $main,
     ABSTRACT_FROM       => $main,
     PL_FILES            => {},
     PREREQ_PM		=> $deps,
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'WWW-FreeProxy-*' },
+    clean               => { FILES => "${dist}-* META.yml" },
 );
