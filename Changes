@@ -1,5 +1,8 @@
 Revision history for WWW-FreeProxy
 
+0.03	10 Oct 2008
+	Added copyright notices to plugins to prevent Pod::Coverage test failure.
+
 0.02	08 Apr 2008 
 	Fixed manifest.
 
