@@ -2,6 +2,14 @@ package WWW::FreeProxy::Proxy4Free;
 
 use LWP::Simple;
 
+=head1 FUNCTIONS
+
+=head2 fetch
+
+Fetches proxy list
+
+=cut
+
 sub fetch {
 	my ($self, $callback) = @_;
 	for (1..6) {	       
