@@ -2,7 +2,7 @@ package WWW::FreeProxy;
 
 use Exporter;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 our @ISA = qw/Exporter/;
 our @EXPORT = qw/fetch_proxies/;
 
